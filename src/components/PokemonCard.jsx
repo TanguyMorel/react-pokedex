@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 const PokemonCard = ({ name, i }) => {
   const [hp, setHp] = useState(null)
   const [type, setType] = useState([])
+  const [attack, setAttack] = useState("")
   const APIURL = `https://pokeapi.co/api/v2/pokemon/${i}`
 
   useEffect(() => {
@@ -16,7 +17,10 @@ const PokemonCard = ({ name, i }) => {
         setHp(hpStat)
         const typeNames = data.types.map(type => type.type.name)
         setType(typeNames)
-
+        const attackObj = data.stats.find(stat => stat.stat.name === "attack")
+        const attackStat = attackObj?.base_stat
+        console.log(data.stats)
+        setAttack(attackStat)
 
       } catch (e) {
         console.error(e)
@@ -34,10 +38,13 @@ const PokemonCard = ({ name, i }) => {
         alt={`Image de ${name}`}
       />
       <p>PV : {hp}</p>
-      <div className="types" style={{display:"flex", gap:"10px"}}>
+      <div className="types" style={{ display: "flex", gap: "10px" }}>
         {type.map((type, index) => (
-          <span key={index} className="type-badge" style={{padding: "4px 10px"}}>{type}</span>
+          <span key={index} className="type-badge" style={{ padding: "4px 10px" }}>{type}</span>
         ))}
+      </div>
+      <div className="bottom-card">
+        <p>Attaque : {attack}</p>
       </div>
 
     </div>
