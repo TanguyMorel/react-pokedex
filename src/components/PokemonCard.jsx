@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import '../styles/PokemonCard.css'
 
 const PokemonCard = ({ name, i }) => {
   const [hp, setHp] = useState(null)
@@ -36,8 +37,6 @@ const PokemonCard = ({ name, i }) => {
 
         const weight = data.weight
         setWeight(weight)
-        
-        
 
       } catch (e) {
         console.error(e)
@@ -48,26 +47,36 @@ const PokemonCard = ({ name, i }) => {
 
 
   return (
-    <div className="pokemon-card">
-      <h2>{name}</h2>
+    <li className="pokemon-card">
+      <div className="head-card">
+        <div className="top-head-card">
+          <h2>{name}</h2>
+          <p>PV : {hp}</p>
+        </div>
+          <div className="bottom-head-card">
+            <p>#{i}</p>
+          </div>
+      </div>
       <img
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${i}.png`}
         alt={`Image de ${name}`}
       />
-      <p>PV : {hp}</p>
-      <div className="types" style={{ display: "flex", gap: "10px" }}>
+      <div className="types-container" style={{ display: "flex", gap: "10px" }}>
         {type.map((type, index) => (
           <span key={index} className="type-badge" style={{ padding: "4px 10px" }}>{type}</span>
         ))}
       </div>
       <div className="bottom-card">
-        <p>Attaque : {attack}</p>
-        <p>Défense : {defense}</p>
-        <p>Speed : {speed}</p>
-        <p>weight : {weight}kg</p>
+        <div className="top">
+          <p>Attaque: <span className='bold'>{attack} </span></p>
+          <p>Défense: <span className='bold'>{defense} </span></p>
+        </div>
+        <div className="bottom">
+          <p>Speed: <span className='bold'>{speed} </span></p>
+          <p>weight: <span className='bold'>{weight / 10}kg </span></p>
+        </div>
       </div>
-
-    </div>
+    </li>
   )
 }
 
