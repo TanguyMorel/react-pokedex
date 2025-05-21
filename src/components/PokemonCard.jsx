@@ -5,6 +5,8 @@ const PokemonCard = ({ name, i }) => {
   const [type, setType] = useState([])
   const [attack, setAttack] = useState("")
   const [defense, setDefense] = useState("")
+  const [speed, setSpeed] = useState("")
+  const [weight, setWeight] = useState("")
   const APIURL = `https://pokeapi.co/api/v2/pokemon/${i}`
 
   useEffect(() => {
@@ -27,6 +29,14 @@ const PokemonCard = ({ name, i }) => {
         const defenseObj = data.stats.find(stat => stat.stat.name === "defense")
         const defenseStat = defenseObj?.base_stat
         setDefense(defenseStat)
+
+        const speedObj = data.stats.find(stat => stat.stat.name === "speed")
+        const speedStat = speedObj?.base_stat
+        setSpeed(speedStat)
+
+        const weight = data.weight
+        setWeight(weight)
+        
         
 
       } catch (e) {
@@ -53,6 +63,8 @@ const PokemonCard = ({ name, i }) => {
       <div className="bottom-card">
         <p>Attaque : {attack}</p>
         <p>Défense : {defense}</p>
+        <p>Speed : {speed}</p>
+        <p>weight : {weight}kg</p>
       </div>
 
     </div>
