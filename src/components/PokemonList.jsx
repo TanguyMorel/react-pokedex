@@ -24,7 +24,13 @@ const PokemonList = () => {
     },[])
   return (
     <div>
-        <h1>Liste des 100 premiers pokémons (en log)</h1>
+        <h1>Liste des 100 premiers pokémons</h1>
+         <ul>
+          {pokemonList.map((pokemon, i) => (
+            <li key={i}>{pokemon.name}
+            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i+1}.png`} alt={`Image de ${pokemon.name}`}/></li>
+          ))}
+        </ul>
     </div>
   )
 }
