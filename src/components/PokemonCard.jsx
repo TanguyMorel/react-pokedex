@@ -10,6 +10,57 @@ const PokemonCard = ({ name, i }) => {
   const [weight, setWeight] = useState("")
   const APIURL = `https://pokeapi.co/api/v2/pokemon/${i}`
 
+
+const mainType = type[0] 
+
+const typeGradients = {
+  grass: 'linear-gradient(135deg, #9bcc50, #4CAF50)',
+  fire: 'linear-gradient(135deg, #ff9a00, #ff3d00)',
+  water: 'linear-gradient(135deg, #2196F3, #03A9F4)',
+  electric: 'linear-gradient(135deg, #fceabb, #f8b500)',
+  bug: 'linear-gradient(135deg, #a8b820, #6e7f0e)',
+  normal: 'linear-gradient(135deg, #dcdcdc, #a8a878)',
+  poison: 'linear-gradient(135deg, #a040a0, #6a1b9a)',
+  ground: 'linear-gradient(135deg, #e0c068, #b89452)',
+  fairy: 'linear-gradient(135deg, #fce4ec, #f06292)',
+  fighting: 'linear-gradient(135deg, #d32f2f, #ef5350)',
+  psychic: 'linear-gradient(135deg, #ff80ab, #ea80fc)',
+  rock: 'linear-gradient(135deg, #b8a038, #827717)',
+  ghost: 'linear-gradient(135deg, #7b62a3, #4a148c)',
+  ice: 'linear-gradient(135deg, #b2ebf2, #4dd0e1)',
+  dragon: 'linear-gradient(135deg, #6f35fc, #0d47a1)',
+  dark: 'linear-gradient(135deg, #5d4037, #212121)',
+  steel: 'linear-gradient(135deg, #b0bec5, #607d8b)',
+  flying: 'linear-gradient(135deg, #a890f0, #81d4fa)'
+}
+
+const bgColor = typeGradients[mainType] || 'linear-gradient(135deg, #e0e0e0, #bdbdbd)'
+
+const typeColors = {
+  grass: '#78C850',
+  fire: '#F08030',
+  water: '#6890F0',
+  electric: '#F8D030',
+  bug: '#A8B820',
+  normal: '#A8A878',
+  poison: '#A040A0',
+  ground: '#E0C068',
+  fairy: '#EE99AC',
+  fighting: '#C03028',
+  psychic: '#F85888',
+  rock: '#B8A038',
+  ghost: '#705898',
+  ice: '#98D8D8',
+  dragon: '#7038F8',
+  dark: '#705848',
+  steel: '#B8B8D0',
+  flying: '#A890F0'
+}
+
+const bgColorType = typeColors[mainType] || '#ddd'
+
+
+
   useEffect(() => {
     async function fetchDetails() {
       try {
@@ -47,7 +98,7 @@ const PokemonCard = ({ name, i }) => {
 
 
   return (
-    <li className="pokemon-card">
+    <li className="pokemon-card" style={{background: bgColor}}>
       <div className="head-card">
         <div className="top-head-card">
           <h2>{name}</h2>
@@ -62,9 +113,23 @@ const PokemonCard = ({ name, i }) => {
         alt={`Image de ${name}`}
       />
       <div className="types-container" style={{ display: "flex", gap: "10px" }}>
-        {type.map((type, index) => (
-          <span key={index} className="type-badge" style={{ padding: "4px 10px" }}>{type}</span>
-        ))}
+        {type.map((typeName, index) => (
+  <span
+    key={index}
+    className="type-badge"
+    style={{
+      backgroundColor: typeColors[typeName] || "#ccc",
+      color: "white",
+      padding: "4px 10px",
+      borderRadius: "999px",
+      fontWeight: "bold",
+      fontSize: "0.9rem",
+      textTransform: "capitalize"
+    }}
+  >
+    {typeName}
+  </span>
+))}
       </div>
       <div className="bottom-card">
         <div className="top">
