@@ -96,12 +96,14 @@ const bgColorType = typeColors[mainType] || '#ddd'
     fetchDetails()
   }, [i])
 
+  const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
+
 
   return (
     <li className="pokemon-card" style={{background: bgColor}}>
       <div className="head-card">
         <div className="top-head-card">
-          <h2>{name}</h2>
+          <h2>{capitalizedName}</h2>
           <p>PV : {hp}</p>
         </div>
           <div className="bottom-head-card">
