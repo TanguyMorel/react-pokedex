@@ -39,6 +39,8 @@
   align-items: center;
   font-weight: bold;
   font-size: 1.2rem;
+  position: relative;
+
 }
 
 .bottom-head-card {
@@ -88,3 +90,29 @@
   font-weight: bold;
 }
 
+.pokemon-visual {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.animated-sprite {
+  top: -10px;
+  left: -10px;
+  width: 48px;
+  aspect-ratio: 1;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.animated-sprite img {
+  width: 100%;
+  height: auto;
+}
+
+.pokemon-artwork {
+  width: 70%;
+  height: auto;
+}
