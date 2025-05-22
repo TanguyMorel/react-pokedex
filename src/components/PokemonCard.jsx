@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import '../styles/PokemonCard.css'
 
 const PokemonCard = ({ name, i }) => {
@@ -98,19 +98,62 @@ const PokemonCard = ({ name, i }) => {
 
   const capitalizedName = name.charAt(0).toUpperCase() + name.slice(1)
 
+   const cardRef = useRef(null)
+  const artworkRef = useRef(null)
+
+  useEffect(() => {
+    const card = cardRef.current
+    const artwork = artworkRef.current
+
+    let mouseX = 0
+    let mouseY = 0
+    let currentX = 0
+    let currentY = 0
+
+    const handleMouseMove = (e) => {
+      const rect = card.getBoundingClientRect()
+      mouseX = e.clientX - rect.left
+      mouseY = e.clientY - rect.top
+      artwork.style.opacity = 1
+    }
+
+    const handleMouseLeave = () => {
+      artwork.style.opacity = 0
+    }
+
+    const update = () => {
+      currentX += (mouseX - currentX) * 0.1
+      currentY += (mouseY - currentY) * 0.1
+
+      artwork.style.transform = `translate(${currentX}px, ${currentY}px)`
+      requestAnimationFrame(update)
+    }
+
+    card.addEventListener('mousemove', handleMouseMove)
+    card.addEventListener('mouseleave', handleMouseLeave)
+    requestAnimationFrame(update)
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove)
+      card.removeEventListener('mouseleave', handleMouseLeave)
+    }
+  }, [])
+
 
   return (
-    <li className="pokemon-card" style={{ background: bgColor }}>
+    <li className="pokemon-card" ref={cardRef} style={{ background: bgColor }}>
       <div className="head-card">
         <div className="top-head-card">
           <h2>{capitalizedName}</h2>
-          <div className="animated-sprite">
+          <div className="floating-artwork" ref={artworkRef}>
             <img
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${i}.gif`}
-              alt={`Sprite animé de ${name}`}
-              />
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${i}.gif
+`}
+              alt={`Artwork de ${name}`}
+            />
           </div>
-              <p>PV : {hp}</p>
+
+          <p>PV : {hp}</p>
 
         </div>
         <div className="bottom-head-card">
